@@ -1,0 +1,47 @@
+services:
+  product-service:
+    build:
+      dockerfile: product-service/Dockerfile
+    ports:
+      - "8081:8081"
+    networks:
+      - soa-network
+
+  user-service:
+    build:
+      dockerfile: user-service/Dockerfile
+    ports:
+      - "8082:8082"
+    networks:
+      - soa-network
+
+  order-service:
+    build:
+      dockerfile: order-service/Dockerfile
+    ports:
+      - "8083:8083"
+    depends_on:
+      - product-service
+      - user-service
+    networks:
+      - soa-network
+    environment:
+        - RUNNING_ENV=docker
+
+  api-gateway:
+    build:
+      dockerfile: api-gateway/Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - product-service
+      - user-service
+      - order-service
+    networks:
+      - soa-network
+    environment:
+        - RUNNING_ENV=docker
+
+networks:
+  soa-network:
+    driver: bridge
