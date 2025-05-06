@@ -18,7 +18,7 @@ This is a simple Service Oriented Architecture (SOA) example built with Go. The 
 ## Running the Project
 
 ### Prerequisites
-- Go 1.24+
+- Go 1.23+
 - Docker and Docker Compose (optional)
 
 ### Running with Docker
